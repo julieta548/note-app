@@ -27,4 +27,6 @@ public class Note {
 
     private String description;
 
+    private boolean archived = false;
+
 }

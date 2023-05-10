@@ -79,4 +79,16 @@ public class NoteService {
             System.err.println(e.getMessage());
         }
     }
+
+    public void archiveNote(Long id) {
+
+        try {
+            Note archivedNote = getById(id);
+            archivedNote.setArchived(!archivedNote.isArchived());
+            editNote(archivedNote, id);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+    }
 }

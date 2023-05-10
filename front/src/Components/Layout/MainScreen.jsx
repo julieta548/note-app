@@ -5,11 +5,14 @@ import { Note } from '../Note/Note';
 
 export const MainScreen = () => {
     const [notes, setNotes] = useState([]);
+
     const [note, setNote] = useState({
         title: '',
-        description: ''
+        description: '',
+        archived : false
     });
 
+    const [goToArchive, setGoToArchive] = useState(false);
 
     const getNotes = async () => {
         await axios.get(URI + "notes")
@@ -20,11 +23,6 @@ export const MainScreen = () => {
                 console.error(error);
             })
     }
-
-    useEffect(() => {
-        getNotes()
-    }, [])
-
 
 
     const fillNote = (e) => {
@@ -53,6 +51,8 @@ export const MainScreen = () => {
             })
     }
 
+
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -73,7 +73,7 @@ export const MainScreen = () => {
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Create note</a></li>
-                                    <li><a className="dropdown-item" href="#">Go to archived</a></li>
+                                    <li><a onClick={() => setGoToArchive(!goToArchive)} className="dropdown-item" href="#">{goToArchive ? 'Go to main screen' : 'Go to archived'}</a></li>
 
                                 </ul>
                             </li>
@@ -87,11 +87,8 @@ export const MainScreen = () => {
                 </div>
             </nav>
 
-            {notes.map(note => (
-                <div key={note.id}>
-                    <Note note={note} getNotes={getNotes}></Note>
-                </div>
-            ))}
+
+            <Note notes={notes} goToArchive={goToArchive} getNotes={getNotes}></Note>
 
             <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">

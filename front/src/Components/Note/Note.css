@@ -1,9 +1,16 @@
 .card {
-    width: 400px;
+    width: 350px;
     height: 300px;
+    margin: 30px;
 }
 
 .button{
     margin: 5px;
    
+}
+
+.container-layout {
+    width: 750px;
+    display: flex;
+    flex-direction: row;
 }

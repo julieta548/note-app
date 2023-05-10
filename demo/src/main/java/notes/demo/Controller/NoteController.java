@@ -69,6 +69,17 @@ public class NoteController {
         }
     }
 
+    @PutMapping("/notes/archive/{id}")
+    public ResponseEntity<HttpStatus> archiveNote(@PathVariable Long id) {
+        try {
+            noteService.archiveNote(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @DeleteMapping("/notes/delete/{id}")
     public ResponseEntity<HttpStatus> deleteNote(@PathVariable Long id) {
         try {
